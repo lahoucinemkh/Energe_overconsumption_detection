@@ -1,0 +1,15 @@
+LICENSE
+README.md
+setup.py
+src/overConsumption/__init__.py
+src/overConsumption.egg-info/PKG-INFO
+src/overConsumption.egg-info/SOURCES.txt
+src/overConsumption.egg-info/dependency_links.txt
+src/overConsumption.egg-info/top_level.txt
+src/overConsumption/components/__init__.py
+src/overConsumption/config/__init__.py
+src/overConsumption/config/configuration.py
+src/overConsumption/constants/__init__.py
+src/overConsumption/entity/__init__.py
+src/overConsumption/pipeline/__init__.py
+src/overConsumption/utils/__init__.py
