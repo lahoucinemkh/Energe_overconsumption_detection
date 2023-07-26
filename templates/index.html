@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV to Excel Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="file"],
+        input[type="submit"] {
+            padding: 8px;
+            font-size: 16px;
+        }
+        /* CSS animation for the loading spinner */
+        .loader {
+            border: 4px solid rgba(0, 0, 0, 0.3);
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: none;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>CSV to Excel Converter</h1>
+    <form id="uploadForm" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="csvFile">Upload CSV File:</label>
+            <input type="file" name="csvFile" id="csvFile" accept=".csv">
+        </div>
+        <div class="form-group">
+            <!-- Add the loading spinner -->
+            <div class="loader" id="loader"></div>
+            <input type="submit" value="Start Processing" id="startButton" onclick="handleProcessing()">
+        </div>
+    </form>
+
+    <div id="downloadForm" {% if link %} style="display: block;" {% else %} style="display: none;" {% endif %}>
+        <h2>Download Excel File</h2>
+        <a href="{{ link }}" id="downloadLink" download="suivi_9_sites.xlsx">Download Excel</a>
+    </div>
+
+    <script>
+        function handleProcessing() {
+            // Disable the processing button and show the loading spinner
+            const startButton = document.getElementById("startButton");
+            const loader = document.getElementById("loader");
+            startButton.disabled = true;
+            loader.style.display = "block";
+
+            const formData = new FormData();
+            formData.append("csvFile", document.getElementById("csvFile").files[0]);
+
+            fetch("/", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const downloadLink = document.getElementById("downloadLink");
+                downloadLink.href = URL.createObjectURL(blob);
+                document.getElementById("downloadForm").style.display = "block";
+                
+                // Re-enable the processing button and hide the loading spinner
+                startButton.disabled = false;
+                loader.style.display = "none";
+            })
+            .catch(error => console.error(error));
+        }
+    </script>
+</body>
+</html>
