@@ -17,3 +17,4 @@ Flask-Cors
 -e .
 xlsxwriter
 scikit-learn
+joblib==1.1.0
