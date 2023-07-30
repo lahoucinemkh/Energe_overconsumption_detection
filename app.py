@@ -30,7 +30,7 @@ def index():
         csv_file = request.files["csvFile"]
 
         # Save the CSV file in the current directory
-        csv_filename = "dimanche.csv"
+        csv_filename = "data.csv"
         csv_file.save(csv_filename)
 
         # Exécuter le notebook pour le traitement

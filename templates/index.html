@@ -1,114 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Suivi Machine (Overconsumption Analyse)</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #e6f3ff; /* Nouvelle couleur de fond */
-        }
-
-        h1 {
-            text-align: center;
-            color: #3498db; /* Couleur du titre */
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="file"],
-        input[type="submit"] {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc; /* Bordure grise */
-            border-radius: 5px;
-        }
-
-        input[type="submit"] {
-            background-color: #3498db; /* Couleur du bouton */
-            color: #fff; /* Couleur du texte du bouton */
-            cursor: pointer;
-        }
-
-        /* Ajouter un style au carré d'upload */
-        input[type="file"] {
-            background-color: #f0f0f0; /* Couleur de fond du carré d'upload */
-            color: #3498db; /* Couleur du texte du carré d'upload */
-            border: 2px solid #3498db; /* Bordure bleue */
-            padding: 8px;
-            border-radius: 5px;
-        }
-
-        /* CSS animation for the loading spinner */
-        .loader {
-            border: 4px solid rgba(0, 0, 0, 0.3);
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            display: none;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        #downloadForm {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #downloadForm h2 {
-            color: #3498db; /* Couleur du titre */
-        }
-
-        #downloadLink {
-            display: inline-block;
-            padding: 10px;
-            background-color: #3498db; /* Couleur du bouton de téléchargement */
-            color: #fff; /* Couleur du texte du bouton de téléchargement */
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        #downloadLink:hover {
-            background-color: #258cd1; /* Couleur du bouton de téléchargement au survol */
-        }
-    </style>
+        <meta charset="UTF-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Suivi Machine (Overconsumption Analyse)</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Suivi Machine (Overconsumption Analyse)</h1>
-    <form id="uploadForm" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="csvFile">Upload CSV File:</label>
-            <input type="file" name="csvFile" id="csvFile" accept=".csv">
-        </div>
-        <div class="form-group">
-            <!-- Add the loading spinner -->
-            <div class="loader" id="loader"></div>
-            <input type="submit" value="Start Processing" id="startButton" onclick="handleProcessing()">
-        </div>
-    </form>
+    <div class="ecran">
+        
+        <div class="carte" data-tilt>
+            <h1>Suivi Machine</h1>
+            <form id="uploadForm" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="csvFile">Upload CSV File:</label>
+                    <input type="file" name="csvFile" id="csvFile" accept=".csv">
+                </div>
+                <div class="form-group">
+                    <!-- Add the loading spinner -->
+                    <div class="loader" id="loader"></div>
+                    <input type="submit" value="Start Processing" id="startButton" onclick="handleProcessing()">
+                </div>
+            </form>
 
-    <div id="downloadForm" {% if link %} style="display: block;" {% else %} style="display: none;" {% endif %}>
-        <h2>Download Excel File</h2>
-        <a href="{{ link }}" id="downloadLink" download="suivi_9_sites.xlsx">Download Excel</a>
+            <div id="downloadForm" {% if link %} style="display: block;" {% else %} style="display: none;" {% endif %}>
+                <h2>Download Excel File</h2>
+                <a href="{{ link }}" id="downloadLink" download="suivi_9_sites.xlsx">Download Excel</a>
+            </div>
+        </div>
+    
     </div>
 
     <script>
@@ -139,5 +63,7 @@
             .catch(error => console.error(error));
         }
     </script>
+    <script src="{{ url_for('static', filename='vanilla-tilt.js') }}"></script>
+    
 </body>
 </html>
