@@ -38,7 +38,7 @@ def index():
         execute_notebook(notebook_filename, csv_filename)
         
         # Retourner le fichier Excel en téléchargement
-        link = "suivi_9_sites.xlsx"
+        link = "Suivi.xlsx"
         return send_file(link, as_attachment=True)  # Send the file as an attachment
 
     return render_template("index.html")
